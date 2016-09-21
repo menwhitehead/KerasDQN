@@ -1,4 +1,5 @@
 from dqn import DQN
+from double_dqn import DoubleDQN
 from dqn_globals import *
 import numpy as np
 import time
@@ -104,7 +105,7 @@ class DQNTraining:
         #self.dqn.printModel()
         
       if episode % MODEL_SAVE_FREQUENCY == 0:
-        self.dqn.saveModel(MODEL_FILENAME)     
+        self.dqn.saveModel(MODEL_FILENAME + "A", MODEL_FILENAME + "B")     
         
       if LOG:
         log_file.write("%d, %d, %d, %.6f\n" % (episode, self.dqn.iteration, train_score, episode_time))
@@ -114,7 +115,7 @@ class DQNTraining:
 
 if __name__ == "__main__":
   environment = getEnvironment() 
-  dqn = DQN(environment, environment.getActionSet())
+  dqn = DoubleDQN(environment, environment.getActionSet())
   training = DQNTraining(environment, dqn)
   training.train()
 

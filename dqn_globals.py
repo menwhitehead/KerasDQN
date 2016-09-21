@@ -35,14 +35,14 @@ TESTING_LOG = "logs/testing_log_%s.csv" % model_time
 
 
 START_EPSILON = 1.0
-END_EPSILON = 0.1
+END_EPSILON = 0.05
 EXPLORE = 1000000  # Number of iterations needed for epsilon to reach 0.1
 
 VERBOSE = False
 DISPLAY_FREQUENCY = 100  # Display the training progress this often (in terms of episodes)
 LOG = True
 
-REPLAY_MEMORY_SIZE = 20000 #2000000
+REPLAY_MEMORY_SIZE = 2000000 #2000000
 REPLAY_MEMORY_INIT_SIZE = 1000 # Sequences to add to replay memory before training begins
 #SKIP_FRAME = 3 # Number of frames skipped per action
 #MODEL = "" # Model file to load
@@ -253,8 +253,8 @@ def createModelTiny():
 
 
 
-# Shallow/wide model
-def createModel():
+
+def createModelDeepish():
   model_filter = Sequential()
   # model_filter.add(Lambda(lambda x: x, input_shape=(NUMBER_ACTIONS,), output_shape=(NUMBER_ACTIONS,)))
   model_filter.add(Identity(input_shape=(NUMBER_ACTIONS,)))
@@ -309,7 +309,7 @@ def createModel1Conv():
 
 
 # Remove dense, add second conv
-def createModel3Conv():
+def createModel():
   model_filter = Sequential()
   # model_filter.add(Lambda(lambda x: x, input_shape=(NUMBER_ACTIONS,), output_shape=(NUMBER_ACTIONS,)))
   model_filter.add(Identity(input_shape=(NUMBER_ACTIONS,)))
@@ -321,12 +321,12 @@ def createModel3Conv():
   model.add(ZeroPadding2D((1,1)))
   model.add(Convolution2D(64, 3, 3, init="normal", subsample=(1,1), activation='relu'))
   
-  model.add(ZeroPadding2D((1,1)))
-  model.add(Convolution2D(32, 3, 3, init="normal", subsample=(1,1), activation='relu'))
+  #model.add(ZeroPadding2D((1,1)))
+  #model.add(Convolution2D(32, 3, 3, init="normal", subsample=(1,1), activation='relu'))
   # model.add(ZeroPadding2D((1,1)))
   # model.add(Convolution2D(64, 3, 3, subsample=(1,1), activation='relu'))
   model.add(Flatten()) 
-  # model.add(Dense(128, activation='relu'))
+  model.add(Dense(1024, activation='relu'))
   model.add(Dense(NUMBER_ACTIONS, activation='relu'))
   
   merged = Sequential()

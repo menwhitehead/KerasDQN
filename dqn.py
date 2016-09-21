@@ -1,5 +1,5 @@
 from keras.models import model_from_json
-from keras.optimizers import SGD, Adadelta
+from keras.optimizers import SGD, Adadelta, Adam
 # from keras_functions import *
 import numpy as np
 from dqn_globals import *
@@ -16,8 +16,8 @@ class DQN:
         self.clone_frequency = NETWORK_CLONE_FREQUENCY
         self.net = createModel() #createDMModel()
         # self.optimize = SGD(lr=LEARNING_RATE, decay=DECAY, momentum=MOMENTUM, nesterov=True)
-        self.optimize = Adadelta(lr=1.0, rho=0.95, epsilon=1e-08)
-
+        #self.optimize = Adadelta(lr=1.0, rho=0.95, epsilon=1e-08)
+        self.optimize = Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
         self.target_net = createModel()
         self.cloneTrainingNetToTargetNet()
         
