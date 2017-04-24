@@ -108,6 +108,7 @@ class DQNTraining:
           # For DoubleDQN
           #self.dqn.saveModel(MODEL_FILENAME + "A", MODEL_FILENAME + "B")
           self.dqn.saveModel(MODEL_FILENAME)
+        
 
       if LOG:
         log_file.write("%d, %d, %d, %.6f\n" % (episode, self.dqn.iteration, train_score, episode_time))
@@ -121,5 +122,3 @@ if __name__ == "__main__":
   dqn = DQN(environment, environment.getActionSet())
   training = DQNTraining(environment, dqn)
   training.train()
-
-

@@ -37,7 +37,7 @@ TESTING_LOG = "logs/testing_log_%s.csv" % model_time
 
 
 START_EPSILON = 1.0
-END_EPSILON = 0.05
+END_EPSILON = 0.1
 EXPLORE = 1000000  # Number of iterations needed for epsilon to reach 0.1
 
 VERBOSE = False
@@ -361,7 +361,3 @@ def createModelWide():
   merged.add(Merge([model_filter, model], mode='mul'))
 
   return merged
-
-
-
-
